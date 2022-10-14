@@ -1,0 +1,10 @@
+INSERT INTO agent (id, name)VALUES(1, 'Guy');
+INSERT INTO supplier (id, name, contact)VALUES(1, 'ToolCo', 'A. Guy');
+INSERT INTO supplier (id, name, contact)VALUES(2, 'Ziegler', 'S. Mann');
+INSERT INTO item (id, name, item_desc, item_type, item_subtype, partn, manufacturer, supplier_id)VALUES(1, 'Knurled Nut', '1"x1" nut', 2, 80, '687054M3', 'AGCO', 2);
+INSERT INTO item (id, name, item_desc, item_type, item_subtype, manufacturer, supplier_id)VALUES(2, 'hex nut', '1/4-20 x 1/2" hex Gd.5', 2, 1, 'Hillman', 1);
+INSERT INTO item (id, name, item_desc, item_type, item_subtype, manufacturer, supplier_id)VALUES(3, 'flat washer', '1/4', 3, 4, 'Hillman', 1);
+INSERT INTO storage (id, name, location, address)values(1, 'Building 1', 'B1', '123 Main St.');
+INSERT INTO part_bin (id, location_code, item_id, position, qty, max_qty)VALUES(1, 'B1-AA11', 3, 'A2', 8, 10);
+INSERT INTO part_bin (id, location_code, item_id, position, qty, max_qty)VALUES(2, 'B1-AA11', 1, 'A1', 0, 10);
+INSERT INTO part_bin (id, location_code, item_id, position, qty, max_qty)VALUES(3, 'B1-AA11', 2, 'B1', 183, 250);

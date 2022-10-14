@@ -1,0 +1,26 @@
+
+<!-- header start -->
+<head>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}"> -->
+</head>
+<body>
+    <div class="w3-bar w3-light-grey">
+        <a href="/" class="w3-bar-item w3-button">Home</a>
+        <a href="/reports" class="w3-bar-item w3-button">Reports</a>
+        <a href="#" class="w3-bar-item w3-button">Logout</a>
+        <form action="/item" id="search_form">
+            <input type="text" name="stxt" class="w3-bar-item w3-input" placeholder="Search..">
+            <a href="#" class="w3-bar-item w3-button w3-green" onclick="document.getElementById('search_form').submit();">Go</a>
+        </form>
+</div>
+
+<div class="w3-sidebar w3-bar-block" style="width:15%">
+    <a href="/item" class="w3-bar-item w3-button w3-hover-blue">Items</a>
+    <a href="/history" class="w3-bar-item w3-button w3-hover-blue">Action History</a>
+    <a href="/orders" class="w3-bar-item w3-button w3-hover-blue">Orders <span class="w3-badge w3-red">{{order_count}}</span></a>
+    <a href="/locations" class="w3-bar-item w3-button w3-hover-blue">Bin Locations</a>
+</div>
+<!-- header end -->
+<!-- page content -->
+<div style="margin-left:20%;margin-top:5%;margin-bottom:5%;">

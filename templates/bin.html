@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'header.html' %}
+
+<div style="w3-cell-row">
+    <div class=" w3-cell" style="padding:10px">
+        <div class="w3-card-4">
+            <header class="w3-container w3-blue-gray">
+            <h2>Bins in this location</h2>
+            </header>
+            <div class="w3-container">
+                <table>
+                {% for bin in bin_list %}
+
+                <tr><td><a href="/bin/{{bin['_id']}}">{{bin['location_code']}}-{{bin['position']}}: {{bin['item']}}</a></td><td></td></tr>
+
+                {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="w3-card-4 w3-cell" style="width:50%">
+        <header class="w3-container w3-blue">
+            <h2>Parts Bin {{bin_data['location_code']}}-{{bin_data['position']}}</h2>
+        </header>
+        <div class="w3-container">
+            <table>
+            <tr><td><b>Count:</b></td><td>{{bin_data['qty']}}/{{bin_data['max_qty']}}</td></tr>
+            <tr><td><b>Holding:</b></td><td><a href="/item/{{bin_data['item_id']}}">{{bin_data['item_name']}}</a></td></tr>
+            <tr><td><b>Actions:</b></td><td>
+            {% if bin_data['item_id']==None %}
+            <a class="w3-button w3-green w3-round-xlarge w3-hover-teal" href="/action/fill/{{bin_data['_id']}}">Fill</a></td></tr>
+            {% else %}
+            <a class="w3-button w3-green w3-round-xlarge w3-hover-teal" href="/action/use/{{bin_data['_id']}}">Use</a>&nbsp;
+                {% if bin_data['qty'] != bin_data['max_qty'] %}
+            <a class="w3-button w3-green w3-round-xlarge w3-hover-teal" href="/action/reorder/{{bin_data['_id']}}">Reorder</a>&nbsp;
+                {% endif %}
+            <a class="w3-button w3-green w3-round-xlarge w3-hover-teal" href="/action/modify/{{bin_data['_id']}}">Manual Count</a></td></tr>
+
+            {% endif %}
+            </table>
+        </div>
+        <div class="w3-card-4">
+            <header class="w3-container w3-pale-blue">
+                <h2>Recent History</h2>
+            </header>
+            <div class="w3-container">
+                <table class="w3-table-all">
+                    {% for action in action_list %}
+                    <tr><td>
+                        <table style="width: 100%;">
+                            <tr><td><h3>{{action['action_type']}}</h3></td><td>{{action['timestamp'].as_datetime()}}</td></tr>
+                            <tr><td>
+                                {% if action['action_type'] == 'Purchase' %}
+                                Supplier: {{action['supplier']}}
+                                {%elif action['action_type'] == 'Receive' %}
+                                Via: {{action['via']}}
+                                {% endif %}
+                            </td><td>Bin: {{action['bin']}}({{action['item']}})</td></tr>
+                            <tr><td>Performed by {{action['agent']}}</td><td>Quantity: {{action['qty']}}</td></tr>
+                        </table>
+                    </td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+</html>

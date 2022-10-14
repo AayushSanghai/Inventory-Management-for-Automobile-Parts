@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'header.html' %}
+
+<div style="width: 50%;">
+    <div class="w3-card-4">
+
+        <div class="w3-container w3-green">
+            <h2>Add Item</h2>
+        </div>
+        <form action="/add_submit" class="w3-container" style="margin-bottom: 5%">
+            <label>Name</label>
+            <input class="w3-input" name="name" type="text" style="width:40%">
+            <label>Description</label>
+            <input class="w3-input" name="desc" type="text" style="width:40%">
+            <br/>
+            <label>Type</label>
+            <select name="type" class="w3-select" style="width:40%">
+                {% for type in types %}
+                <option value="{{type['name']}}">{{type['name']}}</option>
+                {% endfor %}
+            </select>
+
+            <label>Subtype</label>
+            <select name="subtype" class="w3-select" style="width:40%">
+                {% for sub in subtypes %}
+                <option value="{{sub['name']}}">{{sub['name']}}</option>
+                {% endfor %}
+            </select>
+            <br/>
+            <label>Part#</label>
+            <input class="w3-input" name="partn" type="text" style="width:40%">
+            <label>Manufacturer</label>
+            <input class="w3-input" name="manufacturer" type="text" style="width:40%">
+            <br/>
+            <label>Supplier</label>
+            <select name="supplier_id" class="w3-select" style="width:40%">
+                {% for supplier in suppliers %}
+                <option value="{{supplier['name']}}">{{supplier['name']}}</option>
+                {% endfor %}
+            </select>
+            <br/>
+            <label>Minimum for Auto Reorder:</label>
+            <input class="w3-input" name="reorder_min" type="text" style="width:40%">
+            <br/>
+            <input type="submit" class="w3-submit" value="Add">
+        </form>
+        <br/>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+</html>

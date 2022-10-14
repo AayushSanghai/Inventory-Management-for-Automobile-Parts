@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'header.html' %}
+
+<div class="w3-cell" style="width: 40%;">
+    <div class="w3-card-4">
+        <header class="w3-container w3-blue">
+            <h2>Recent Actions</h2>
+        </header>
+        <div class="w3-container">
+        <table style="w3-table w3-striped">
+            {% for action in actions %}
+            <tr><td>
+                <table style="width: 100%;">
+                    <tr><td><h3>{{action['action_type']}}</h3></td><td>{{action['timestamp'].as_datetime()}}</td></tr>
+                    <tr><td>
+                        {% if action['action_type'] == 'Purchase' %}
+                        Supplier: {{action['supplier']}}
+                        {%elif action['action_type'] == 'Recieve' %}
+                        Via: {{action['via']}}
+                        {% endif %}
+                    </td><td>Bin: {{action['bin']}}({{action['item']}})</td></tr>
+                    <tr><td>Performed by <b>{{action['agent']}}</b></td><td>Quantity: {{action['qty']}}</td></tr>
+                </table>
+            </td></tr>
+            {% endfor %}
+        </table>
+        </div>
+    </div>
+</div>
+<div class="w3-cell" style="width: 40%;">
+    <div class="w3-card-4">
+        <header class="w3-container w3-green">
+            <h2> Bins </h2>
+        </header>
+        <div class="w3-container">
+            <table style="width: 100%;">
+                {% for bin in bins %}
+                <tr><td><a href="/bin/{{bin['_id']}}">{{bin['location_code']}}-{{bin['position']}}</a></td><td>Holding {{bin['qty']}}/{{bin['max_qty']}} ({{bin['item']}} {{bin['item_desc']}})</td></tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+</html>

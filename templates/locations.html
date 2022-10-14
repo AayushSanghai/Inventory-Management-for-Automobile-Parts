@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'header.html' %}
+
+<script>
+function openPart(id) {
+  var x = document.getElementById(id);
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+</script>
+
+<div style="width: 50%;">
+    <div class="w3-card-4">
+            <header class="w3-container w3-blue">
+                <h2>Locations</h2>
+            </header>
+            <div class="w3-container" style="margin: 5%">
+                {% set ns = namespace(loc=none) %}
+                {% for bin in bins %}
+                    {% if bin['location_code'] != ns.loc %}
+                    {% if ns.loc is not none %}
+                        </table>
+                    </div>
+                    {% endif %}
+                    {% set ns.loc = bin['location_code'] %}
+                    <button onclick="openPart('{{bin['location_code']}}')" class="w3-button w3-block w3-left-align w3-green">{{bin['location_code']}}</button>
+                    <div id="{{bin['location_code']}}" class="w3-hide">
+                        <table class="w3-table-all">
+                    {% endif %}
+                        {% if bin['item_name'] is none %}
+                        <tr><td><a href="/bin/{{bin['_id']}}">{{bin['location_code']}}-{{bin['position']}} (unused)</a></td></tr>
+                        {% else %}
+                        <tr><td><a href="/bin/{{bin['_id']}}">{{bin['location_code']}}-{{bin['position']}} ({{bin['item_name']}} {{bin['qty']}}/{{bin['max_qty']}})</a></td></tr>
+                        {% endif %}
+                {% endfor %}
+                 </table></div>
+            </div><br/>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+</html>

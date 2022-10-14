@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'header.html' %}
+
+<div style="width: 50%;">
+    <div class="w3-card-4">
+        <header class="w3-container w3-blue">
+            <h2>Item {{item['name']}}</h2>
+        </header>
+        <div class="w3-container">
+            <table style="width:100%;">
+                <tr><td style="width:20%;"><b>Desc.:</b></td><td>{{item['description']}}</td></tr>
+                <tr><td><b>Type:</b></td><td>{{item['item_type']}}</td></tr>
+                <tr><td><b>Subtype:</b></td><td>{{item['subtype']}}</td></tr>
+                <tr><td><b>Manufaturer:</b></td><td>{{item['manufacturer']}} ({{item['partn']}})</td></tr>
+                <tr><td><b>Supplied By:</b></td><td>{{item['supplier']}}</td></tr>
+            </table>
+            <h3 style="text-decoration: underline;">Available in parts bins</h3>
+            <table class="w3-table-all w3-hoverable">
+                {%for bin in bins%}
+                <tr><td>{{bin['location_code']}}-{{bin['position']}}</td><td>Quantity: {{bin['qty']}}/{{bin['max_qty']}}</td><td><a class="w3-button w3-green w3-round-xlarge w3-hover-teal" href="/action/reorder/{{bin['_id']}}">Reorder Here</a>&nbsp;<a class="w3-button w3-green w3-round-xlarge w3-hover-teal" href="/bin/{{bin['_id']}}">Go here</a></td></tr>
+                {%endfor%}
+            </table>
+            <br/>
+            <a class="w3-button w3-indigo w3-hover-light-blue w3-round-xlarge" href="/action/fill/{{item['_id']}}">Fill Bin</a>
+            <a class="w3-button w3-indigo w3-hover-light-blue w3-round-xlarge" href="/action/order/{{item['_id']}}">Order to Bin</a>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+</html>

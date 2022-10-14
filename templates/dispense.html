@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'header.html' %}
+
+<div style="width: 50%;">
+    <div class="w3-card-4">
+        <header class="w3-container w3-blue">
+            <h2>Dispensing {{item['name']}}({{item['description']}}) from {{bin_data['location_code']}}-{{bin_data['position']}}</h2>
+        </header>
+        <div class="w3-container">
+            <form action="/dispense_submit">
+                <p>Dispense Qty from this bin(Max. {{bin_data['qty']}}): <input name="count" type="number" min="1" max="{{bin_data['qty']}}" value="1"></p>
+                <input type="hidden" name="bin" value="{{bin_data['_id']}}">
+                <input type="submit" value="Dispense">
+            </form>
+            <br/>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+</html>

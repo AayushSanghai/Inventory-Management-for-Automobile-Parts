@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'header.html' %}
+
+<div style="width: 50%;">
+    <div class="w3-card-4">
+
+        <div class="w3-container w3-green">
+            <h2>Order {{item_data['name']}}({{item_data['description']}})</h2>
+        </div>
+        <form action="/order_submit">
+        <p>To Bin: <select name="bin">
+        {% for bin in bins %}
+        <option value="{{bin['_id']}}">{{bin['location_code']}}-{{bin['position']}}</option>
+        {% endfor %}
+        </select></p>
+        <p>Order Qty for this bin: <input name="count" type="number" min="1"></p>
+        <p>Price per unit: <input name="price" type="text"></p>
+        <input type="hidden" name="iid" value="{{item_data['_id']}}">
+        <input type="hidden" name="supplier" value="{{item_data['supplier']}}">
+        <input type="submit" value="Order">
+        </form>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+</html>

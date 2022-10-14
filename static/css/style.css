@@ -1,0 +1,85 @@
+table {
+	border-collapse: separate;
+	border-spacing: 0 20px;
+}
+
+table.tabular {
+	width: 100%;
+	border-collapse: collapse;
+	border: 1px solid black;
+}
+
+td.tabular {
+	padding: 5px;
+	border-collapse: collapse;
+	border: 1px solid black;
+}
+
+.alt1 {
+	width: 100%;
+	background-color: rgb(153,185,255);
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+}
+
+h2 {
+	background: #F19993;
+}
+
+h3 {
+	text-decoration: underline;
+	padding: 0px;
+	border: 0px;
+	line-height: 0px;
+}
+a.button {
+	text-decoration: none;
+	color: rgb(0, 0, 0);
+	padding: 10px;
+	border-radius: 10px;
+	background: #99ffcc;
+}
+
+a.header {
+	color: #808080;
+}
+
+div.box {
+	margin: auto;
+	width: 40%;
+	border: 1px solid #000000;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+div.list {
+	float: left;
+	width: 25%;
+	border: 1px solid #000000;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+div.header {
+	margin: auto;
+	padding: 10px;
+}
+
+div.floatchild {
+	float: left;
+	width: 50%;
+}
+
+div.recentbox {
+	margin: auto;
+	width: 80%;
+	border: 1px solid #000000;
+	border-radius: 5px;
+}
+
+div.itembox {
+	margin: right;
+	width: 80%;
+	border: 1px solid #000000;
+	border-radius: 5px;
+}

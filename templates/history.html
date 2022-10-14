@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'header.html' %}
+
+<div style="width: 50%;">
+    <div class="w3-card-4">
+            <header class="w3-container w3-blue">
+                <h2>History</h2>
+            </header>
+            <div class="w3-container">
+                <table class="w3-table-all">
+                    {% for action in actions %}
+                    <tr><td>
+                        <table style="width: 100%;">
+                            <tr><td><h3>{{action['action_type']}}</h3></td><td>{{action['timestamp'].as_datetime()}}</td></tr>
+                            <tr><td>
+                                {% if action['action_type'] == 'Purchase' %}
+                                Supplier: {{action['supplier']}}
+                                {%elif action['action_type'] == 'Receive' %}
+                                Via: {{action['via']}}
+                                {% endif %}
+                            </td><td>Bin: <a href="/bin/{{action['bin_id']}}">{{action['bin']}}({{action['item']}})</a></td></tr>
+                            <tr><td>Performed by {{action['agent']}}</td><td>Quantity: {{action['qty']}}</td></tr>
+                        </table>
+                    </td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="w3-bar w3-center">
+                 <a href="/history?page={{page-1}}" class="w3-button">&laquo;</a>
+                 {% for n in range(pages) %}
+                 {% if n == page %}
+                 <a href="#" class="w3-button w3-green">{{n+1}}</a>
+                 {%else%}
+                 <a href="/history?page={{n}}" class="w3-button">{{n+1}}</a>
+                 {%endif%}
+                 {% endfor %}
+                 <a href="/history?page={{page+1}}" class="w3-button">&raquo;</a>
+             </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+</html>

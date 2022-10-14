@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'header.html' %}
+
+<div style="width: 50%;">
+    <div class="w3-card-4">
+        <header class="w3-container w3-blue">
+            <h2>Manual count of {{item['name']}} in {{bin_data['location_code']}}-{{bin_data['position']}}</h2>
+        </header>
+
+        <div style="margin: 5%">
+            <form action="/modify_submit">
+                <p>Current count {{bin_data['qty']}}</p>
+                <p>Actual count (Max. {{bin_data['max_qty']}}): <input name="count" type="number" min="1" max="{{bin_data['max_qty']}}"></p>
+                <input type="hidden" name="current" value="{{bin_data['qty']}}">
+                <input type="hidden" name="bin" value="{{bin_data['_id']}}">
+                <input type="hidden" name="iid" value="{{item['_id']}}">
+                <input type="submit" value="Modify">
+            </form>
+            <br/>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+</html>

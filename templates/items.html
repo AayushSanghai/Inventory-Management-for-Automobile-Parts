@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'header.html' %}
+
+<div style="width: 75%;">
+    <div class="w3-card-4">
+        <header class="w3-container w3-blue">
+            <h2>Available Items</h2>
+        </header>
+        <div class="w3-container">
+            <table class="w3-table-all">
+                <tr><th>Item</th><th>Type</th><th>Subtype</th><th>On Hand</th><th>Manufacturer(Part#)</th><th>Supplier</th></tr>
+                {% for item in items %}
+                <tr>
+                    <td><a href="/item/{{item['_id']}}">{{item['name']}}</a> {{item['description']}}</td>
+                    <td>{{item['item_type']}}</td>
+                    <td>{{item['subtype']}}</td>
+                    <td>{{item['total_qty']}}</td>
+                    <td>{{item['manufacturer']}}({{item['partn']}})</td>
+                    <td>{{item['supplier']}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+             <div class="w3-bar w3-center">
+                 <a href="/item?page={{page-1}}&stxt={{search}}" class="w3-button">&laquo;</a>
+                 {% for n in range(pages) %}
+                 {% if n == page %}
+                 <a href="#" class="w3-button w3-green">{{n+1}}</a>
+                 {%else%}
+                 <a href="/item?page={{n}}&stxt={{search}}" class="w3-button">{{n+1}}</a>
+                 {%endif%}
+                 {% endfor %}
+                 <a href="/item?page={{page+1}}&stxt={{search}}" class="w3-button">&raquo;</a>
+             </div>
+            <br/><br/>
+            <a class="w3-button w3-green w3-round-xlarge w3-hover-teal" href="/action/add/0">Add Item</a>
+            <br/><br/>
+        </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+</html>

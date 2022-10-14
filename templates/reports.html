@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'header.html' %}
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script type="text/javascript">
+function openPart(id) {
+  var x = document.getElementById(id);
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+
+function runReport(rpt) {
+  const xhttp = new XMLHttpRequest();
+  xhttp.onload = function() {
+    eval(this.responseText);
+    //Plotly.deleteTraces(rpt+'_chart', 0);
+    Plotly.plot(rpt+'_chart',graphs,{});
+    graphs="";
+  }
+  xhttp.open("GET", "/report/"+rpt);
+  xhttp.send();
+}
+
+</script>
+
+<div style="width: 80%;">
+    <div class="w3-card-4">
+            <header class="w3-container w3-blue">
+                <h2>Reports</h2>
+            </header>
+            <div class="w3-container" style="margin: 5%">
+                <button onclick="openPart('orders_report')" class="w3-button w3-block w3-left-align w3-green">Orders MTD</button>
+                <div id="orders_report" class="w3-hide w3-margin w3-center">
+                    <div id="orders_chart" class="chart"></div>
+                    <a class="w3-button w3-indigo w3-hover-light-blue w3-round-xlarge" onclick='runReport("orders")' href="#">Run Report</a>
+                </div>
+                <button onclick="openPart('storage_report')" class="w3-button w3-block w3-left-align w3-green">Storage Usage</button>
+                <div id="storage_report" class="w3-hide w3-margin w3-center">
+                    <div id="storage_chart" class="chart"></div>
+                    <a class="w3-button w3-indigo w3-hover-light-blue w3-round-xlarge" onclick='runReport("storage")' href="#">Run Report</a>
+                </div>
+                <br/>
+            </div>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+</html>

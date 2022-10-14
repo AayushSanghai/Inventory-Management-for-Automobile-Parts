@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'header.html' %}
+
+<div style="width: 50%;">
+    <div class="w3-card-4">
+
+        <div class="w3-container w3-green">
+            <h2>Filling with {{item_data['name']}}({{item_data['description']}}) on hand</h2>
+        </div>
+        <form action="/fillbin_submit" class="w3-container" style="margin-bottom: 5%">
+            <p>Bin: <select name="bin">
+                {% for bin in bins %}
+                <option value="{{bin['_id']}}">{{bin['location_code']}}-{{bin['position']}}</option>
+                {% endfor %}
+            </select></p>
+            <p>Fill amount for this bin: <input name="count" type="number" min="1"></p>
+            <p>Max amount for this bin: <input name="max" type="number" min="1"></p>
+            <input type="hidden" name="iid" value="{{item_data['_id']}}">
+            <input type="submit" value="Fill">
+        </form>
+    </div>
+</div>
+
+{% include 'footer.html' %}
+</html>

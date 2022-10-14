@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="box">
+<h2>Filling with {{bin_data[2]}}({{bin_data[3]}}) on hand</h2>
+<form action="/fillbin_submit">
+<p>Bin: <select name="bin">
+{% for bin in bins %}
+<option value=”{{bin[0]}}”>{{bin[1]}}-{{bin[3]}}</option>
+{% endfor %}
+</select></p>
+<p>Refill amount for this bin(Max. {{bin_data[7]}}): <input name="count" type="number" min="1"></p>
+<input type="hidden" name="bin" value="{{bin_data[1]}}">
+<input type="submit" value="Refill">
+</form>
+</div>
+</body>

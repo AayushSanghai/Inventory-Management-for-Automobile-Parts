@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include 'header.html' %}
+
+<div id="success_disp" class="w3-modal">
+  <div class="w3-modal-content" style="margin: 10px">
+    <div class="w3-container">
+        <!-- <span onclick="document.getElementById('success').style.display='none'" class="w3-button w3-display-topright">&times;</span> -->
+        <div id="message_disp">Order Dispatched!</div><br/>
+        <a class="w3-button w3-green w3-round-xlarge w3-hover-teal" href="/orders">Close</a>
+    </div>
+  </div>
+</div>
+
+<div id="success_recv" class="w3-modal">
+  <div class="w3-modal-content" style="margin: 10px">
+    <div class="w3-container">
+        <!-- <span onclick="document.getElementById('success').style.display='none'" class="w3-button w3-display-topright">&times;</span> -->
+        <div id="message_recv">Order Received!</div><br/>
+        <a class="w3-button w3-green w3-round-xlarge w3-hover-teal" href="/orders">Close</a>
+    </div>
+  </div>
+</div>
+
+<div style="width: 75%;">
+    <div class="w3-card-4">
+        <header class="w3-container w3-blue">
+            <h2>Orders</h2>
+        </header>
+        <div class="w3-container">
+            <table class="w3-table-all">
+                {% for order in orders %}
+                <tr>
+                    <td>{{order['item_name']}} ({{order['item_desc']}})<br/>{{order['supplier']}}</td>
+                    <td>{{order['bin_name']}}</td>
+                    <td>{{order['count']}}</td>
+                    <td>{{order['cost'] | currencyFormat}}</td>
+                    {%if order['date'] is none%}
+                    <td><a class="w3-button w3-green w3-round-xlarge w3-hover-teal" onclick="const xhttp = new XMLHttpRequest();
+  xhttp.onload = function() {
+    document.getElementById('message_disp').innerHtml = this.responseText;
+    document.getElementById('success_disp').style.display = 'block';
+  }
+  xhttp.open('GET', '/action/dispatch/{{order['_id']}}');
+  xhttp.send();" href="#">Dispatch</a>&nbsp;<a class="w3-button w3-red w3-round-xlarge w3-hover-pink" onclick="const xhttp = new XMLHttpRequest();
+  xhttp.onload = function() {
+    window.location.reload(true);
+  }
+  xhttp.open('GET', '/action/cancel/{{order['_id']}}');
+  xhttp.send();" href="#">Cancel</a></td>
+                    {%else%}
+                    <td><a class="w3-button w3-indigo w3-round-xlarge w3-hover-light-blue" onclick="const xhttp = new XMLHttpRequest();
+  xhttp.onload = function() {
+    document.getElementById('message_recv').innerHtml = this.responseText;
+    document.getElementById('success_recv').style.display = 'block';
+  }
+  xhttp.open('GET', '/action/receive/{{order['_id']}}');
+  xhttp.send();" href="#">Receive</a> <b>Dispatched {{order['date'].as_datetime()}}</b></td>
+                    {%endif%}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- <script type="text/javascript">
+function dispatch() {
+  const xhttp = new XMLHttpRequest();
+  xhttp.onload = function() {
+    document.getElementById("success").style.display = 'contents';
+    document.getElementById("message").innerHtml = this.responseText;
+  }
+
+  xhttp.send();
+}
+</script> -->
+
+{% include 'footer.html' %}
+</html>
